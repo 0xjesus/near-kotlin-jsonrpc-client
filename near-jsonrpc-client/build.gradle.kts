@@ -85,6 +85,18 @@ publishing {
             }
         }
     }
+    repositories {
+        maven {
+            name = "sonatype"
+            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+            credentials {
+                username = findProperty("sonatypeUsername")?.toString() ?: System.getenv("ORG_GRADLE_PROJECT_sonatypeUsername")
+                password = findProperty("sonatypePassword")?.toString() ?: System.getenv("ORG_GRADLE_PROJECT_sonatypePassword")
+            }
+        }
+    }
 }
 signing {
     val signingKey: String? = findProperty("SIGNING_KEY") as String?
