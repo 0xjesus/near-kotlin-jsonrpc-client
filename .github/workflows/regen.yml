@@ -1,0 +1,32 @@
+name: regen
+on:
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+jobs:
+  regen-openapi-and-client:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v3
+      - run: bash scripts/fix_near_types.sh
+      - run: ./gradlew :near-jsonrpc-client:generateKotlinClient
+      - run: git config user.name "github-actions[bot]"
+      - run: git config user.email "github-actions[bot]@users.noreply.github.com"
+      - run: |
+          git add -A
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "chore: regen types and client from OpenAPI"
+      - uses: peter-evans/create-pull-request@v6
+        with:
+          title: "chore: regen types and client from OpenAPI"
+          branch: chore/regen
+          commit-message: "chore: regen types and client from OpenAPI"
+          delete-branch: true
