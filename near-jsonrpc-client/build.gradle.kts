@@ -62,7 +62,7 @@ publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
-            groupId = (project.findProperty("GROUP") as String?) ?: "com.github.nearclient"
+            groupId = (project.findProperty("GROUP") as String?) ?: "io.github.0xjesus"
             artifactId = "near-jsonrpc-client"
             version = (project.findProperty("VERSION_NAME") as String?) ?: "0.1.0-SNAPSHOT"
             pom {
