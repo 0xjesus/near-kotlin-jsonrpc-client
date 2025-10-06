@@ -2,8 +2,8 @@
 
 Type-safe Kotlin client for NEAR Protocol's JSON-RPC API, automatically generated from the official OpenAPI specification.
 
-[![CI](https://github.com/YOUR_USERNAME/near-kotlin-jsonrpc-client/workflows/CI/badge.svg)](https://github.com/YOUR_USERNAME/near-kotlin-jsonrpc-client/actions)
-[![Maven Central](https://img.shields.io/maven-central/v/org.near/near-jsonrpc-client.svg)](https://search.maven.org/artifact/org.near/near-jsonrpc-client)
+[![CI](https://github.com/0xjesus/near-kotlin-jsonrpc-client/workflows/CI/badge.svg)](https://github.com/0xjesus/near-kotlin-jsonrpc-client/actions)
+[![GitHub Packages](https://img.shields.io/badge/GitHub%20Packages-0.1.0--SNAPSHOT-blue)](https://github.com/0xjesus/near-kotlin-jsonrpc-client/packages)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## Features
@@ -297,4 +297,4 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 
 - [NEAR Documentation](https://docs.near.org)
 - [NEAR Discord](https://near.chat)
-- [GitHub Issues](https://github.com/YOUR_USERNAME/near-kotlin-jsonrpc-client/issues)
+- [GitHub Issues](https://github.com/YOUR_USERNAME/near-kotlin-jsonrpc-client/issues)   
