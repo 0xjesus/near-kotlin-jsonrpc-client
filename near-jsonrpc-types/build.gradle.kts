@@ -99,8 +99,22 @@ tasks.named("compileKotlin") {
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>("mavenJava") {
             from(components["java"])
+            groupId = "io.github.0xjesus"
+            artifactId = "near-jsonrpc-types"  // <-- Cambiar aquí
+            version = "0.1.0-SNAPSHOT"
+            // ... mismo pom que antes
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/0xjesus/near-kotlin-jsonrpc-client")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
         }
     }
 }

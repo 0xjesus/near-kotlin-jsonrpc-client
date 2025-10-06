@@ -62,38 +62,36 @@ publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
-            groupId = (project.findProperty("GROUP") as String?) ?: "io.github.0xjesus"
+            groupId = "io.github.0xjesus"
             artifactId = "near-jsonrpc-client"
-            version = (project.findProperty("VERSION_NAME") as String?) ?: "0.1.0-SNAPSHOT"
+            version = "0.1.0-SNAPSHOT"
             pom {
                 name.set("NEAR JSON-RPC Kotlin Client")
                 description.set("Developer-friendly Kotlin client for NEAR JSON-RPC")
-                url.set((project.findProperty("POM_URL") as String?) ?: "https://github.com/placeholder/repo")
+                url.set("https://github.com/0xjesus/near-kotlin-jsonrpc-client")
                 licenses { license {
-                    name.set((project.findProperty("POM_LICENSE_NAME") as String?) ?: "Apache-2.0")
-                    url.set((project.findProperty("POM_LICENSE_URL") as String?) ?: "https://www.apache.org/licenses/LICENSE-2.0.txt")
+                    name.set("MIT")
+                    url.set("https://opensource.org/licenses/MIT")
                 } }
                 scm {
-                    url.set((project.findProperty("POM_SCM_URL") as String?) ?: "https://github.com/placeholder/repo")
-                    connection.set((project.findProperty("POM_SCM_CONNECTION") as String?) ?: "scm:git:git://github.com/placeholder/repo.git")
-                    developerConnection.set((project.findProperty("POM_SCM_DEV_CONNECTION") as String?) ?: "scm:git:ssh://git@github.com/placeholder/repo.git")
+                    url.set("https://github.com/0xjesus/near-kotlin-jsonrpc-client")
+                    connection.set("scm:git:git://github.com/0xjesus/near-kotlin-jsonrpc-client.git")
+                    developerConnection.set("scm:git:ssh://git@github.com/0xjesus/near-kotlin-jsonrpc-client.git")
                 }
                 developers { developer {
-                    id.set((project.findProperty("POM_DEVELOPER_ID") as String?) ?: "dev")
-                    name.set((project.findProperty("POM_DEVELOPER_NAME") as String?) ?: "Developer")
+                    id.set("0xjesus")
+                    name.set("0xjesus")
                 } }
             }
         }
     }
     repositories {
         maven {
-            name = "sonatype"
-            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/0xjesus/near-kotlin-jsonrpc-client")
             credentials {
-                username = findProperty("sonatypeUsername")?.toString() ?: System.getenv("ORG_GRADLE_PROJECT_sonatypeUsername")
-                password = findProperty("sonatypePassword")?.toString() ?: System.getenv("ORG_GRADLE_PROJECT_sonatypePassword")
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
             }
         }
     }
