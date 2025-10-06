@@ -2,7 +2,7 @@
 
 Type-safe Kotlin client for NEAR Protocol's JSON-RPC API, automatically generated from the official OpenAPI specification.
 
-[![CI](https://github.com/0xjesus/near-kotlin-jsonrpc-client/workflows/CI/badge.svg)](https://github.com/0xjesus/near-kotlin-jsonrpc-client/actions)
+[![CI](https://github.com/0xjesus/near-kotlin-jsonrpc-client/actions/workflows/ci.yml/badge.svg)](https://github.com/0xjesus/near-kotlin-jsonrpc-client/actions)
 [![GitHub Packages](https://img.shields.io/badge/GitHub%20Packages-0.1.0--SNAPSHOT-blue)](https://github.com/0xjesus/near-kotlin-jsonrpc-client/packages)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
