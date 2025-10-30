@@ -1,1 +1,1 @@
-web: java -jar demo-app/build/libs/near-demo.jar
+web: bash run-demo.sh

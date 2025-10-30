@@ -4,15 +4,20 @@ WORKDIR /app
 # Copy project files
 COPY --chown=gradle:gradle . /app
 
-# Make scripts executable
-RUN chmod +x gradlew scripts/fix_near_types.sh 2>/dev/null || true
+# Make scripts executable and install dependencies
+RUN apt-get update && apt-get install -y python3 python3-pip && rm -rf /var/lib/apt/lists/*
+RUN chmod +x gradlew 2>/dev/null || true
+RUN chmod +x scripts/fix_near_types.sh 2>/dev/null || true
 
-# Build the demo application
-RUN bash scripts/fix_near_types.sh || echo "Fix types script completed"
-RUN gradle :demo-app:shadowJar --no-daemon || ./gradlew :demo-app:shadowJar --no-daemon
-
-# Verify the JAR was built
-RUN ls -la demo-app/build/libs/ && test -f demo-app/build/libs/near-demo.jar
+# Build the demo application with verbose output
+RUN echo "=== Starting build process ===" && \
+    bash scripts/fix_near_types.sh && \
+    echo "=== Types fixed, building JAR ===" && \
+    ./gradlew :demo-app:shadowJar --no-daemon --info && \
+    echo "=== Build complete, verifying JAR ===" && \
+    ls -lah demo-app/build/libs/ && \
+    test -f demo-app/build/libs/near-demo.jar && \
+    echo "=== JAR verified successfully ==="
 
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
