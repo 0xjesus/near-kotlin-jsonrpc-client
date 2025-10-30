@@ -2,7 +2,7 @@
 set -euo pipefail
 MODULE=near-jsonrpc-types
 BASE="$MODULE/build/generated-fixed/src/main/kotlin/org/near/jsonrpc/types/models"
-./gradlew ":$MODULE:downloadOpenApiSpec" ":$MODULE:fixAndCopyGenerated"
+./gradlew ":$MODULE:downloadOpenApiSpec" ":$MODULE:patchOpenApiSpec" ":$MODULE:openApiGenerate" ":$MODULE:fixAndCopyGenerated"
 python3 - <<'PY'
 import re, pathlib, sys
 base=pathlib.Path("near-jsonrpc-types/build/generated-fixed/src/main/kotlin/org/near/jsonrpc/types/models")
