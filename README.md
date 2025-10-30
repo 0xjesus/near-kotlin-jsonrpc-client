@@ -6,6 +6,12 @@ Type-safe Kotlin client for NEAR Protocol's JSON-RPC API, automatically generate
 [![GitHub Packages](https://img.shields.io/badge/GitHub%20Packages-0.1.0--SNAPSHOT-blue)](https://github.com/0xjesus/near-kotlin-jsonrpc-client/packages)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+## 🚀 Live Demo
+
+Try the interactive web playground: **[Demo App](YOUR_DEPLOYMENT_URL)** (deploy with one click!)
+
+See the library in action with a beautiful web interface to test all RPC methods.
+
 ## Features
 
 - **Fully Type-Safe**: All RPC methods and responses are strongly typed
@@ -171,6 +177,42 @@ try {
 val rawStatus = client.statusRaw()
 println(rawStatus.jsonObject["version"])
 ```
+
+## Demo Application
+
+This repository includes a full-featured demo application showcasing the library in action.
+
+### Running the Demo Locally
+
+```bash
+# Build and run
+./gradlew :demo-app:shadowJar
+java -jar demo-app/build/libs/near-demo.jar
+
+# Visit http://localhost:8080
+```
+
+### Deploy the Demo
+
+Deploy your own instance with one click:
+
+**Railway**: See [demo-app/README.md](demo-app/README.md) for deployment instructions
+
+**Docker**:
+```bash
+docker build -t near-kotlin-demo .
+docker run -p 8080:8080 near-kotlin-demo
+```
+
+### Demo Features
+
+- 🌐 Interactive web UI with beautiful gradient design
+- 🔄 Switch between Testnet and Mainnet
+- 📝 Pre-filled examples for each RPC method
+- ⚡ Real-time response viewer
+- 🎨 Modern, responsive interface
+
+See [demo-app/README.md](demo-app/README.md) for full documentation.
 
 ## Architecture
 
