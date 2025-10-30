@@ -24,8 +24,6 @@ The demo application showcases:
 - ⚡ Real-time response viewer with syntax highlighting
 - 📱 Fully responsive design
 
-**Want your own instance?** Deploy in minutes! See [demo-app/DEPLOY.md](demo-app/DEPLOY.md) for instructions.
-
 ---
 
 ## ✨ Features
