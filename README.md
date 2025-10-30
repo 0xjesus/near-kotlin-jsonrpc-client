@@ -6,20 +6,33 @@ Type-safe Kotlin client for NEAR Protocol's JSON-RPC API, automatically generate
 [![GitHub Packages](https://img.shields.io/badge/GitHub%20Packages-0.1.0--SNAPSHOT-blue)](https://github.com/0xjesus/near-kotlin-jsonrpc-client/packages)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## 🚀 Live Demo
+---
 
-Try the interactive web playground: **[Demo App](YOUR_DEPLOYMENT_URL)** (deploy with one click!)
+## 🎯 Live Interactive Demo
 
-See the library in action with a beautiful web interface to test all RPC methods.
+**[👉 Try the Interactive Demo](https://your-app.railway.app)** - Test all 32 RPC methods in your browser!
 
-## Features
+The demo application showcases:
+- ✨ All 32 NEAR JSON-RPC methods
+- 🎨 Beautiful, modern UI with method categorization
+- 📝 Pre-filled parameter examples for each method
+- 🔄 Switch between Testnet and Mainnet
+- ⚡ Real-time response viewer
 
-- **Fully Type-Safe**: All RPC methods and responses are strongly typed
-- **Auto-Generated**: Types and client code generated from NEAR's official OpenAPI spec
-- **Kotlin-Native**: Idiomatic Kotlin with coroutines support
-- **Lightweight**: Minimal dependencies using Ktor HTTP client
-- **Well-Tested**: 85%+ test coverage on core functionality
-- **Automated Updates**: GitHub Actions automatically regenerates code when the OpenAPI spec changes
+**Note:** Deploy your own demo instance in minutes! See [demo-app/DEPLOY.md](demo-app/DEPLOY.md) for instructions.
+
+---
+
+## ✨ Features
+
+- 🎯 **32 RPC Methods**: Complete coverage of NEAR's JSON-RPC API
+- 🔒 **Fully Type-Safe**: All RPC methods and responses are strongly typed
+- 🤖 **Auto-Generated**: Types and client code generated from NEAR's official OpenAPI spec
+- 📱 **Kotlin-Native**: Idiomatic Kotlin with coroutines support, perfect for Android
+- 🪶 **Lightweight**: Minimal dependencies using Ktor HTTP client
+- ✅ **Well-Tested**: 85%+ test coverage on core functionality
+- 🔄 **Automated Updates**: GitHub Actions automatically regenerates code when the OpenAPI spec changes
+- 🎨 **camelCase Naming**: All methods converted from snake_case to Kotlin-friendly camelCase
 
 ## Packages
 
@@ -97,43 +110,54 @@ fun main() = runBlocking {
 }
 ```
 
-## Available Methods
+## 📚 Available Methods (32 Total)
 
-All NEAR JSON-RPC methods are available as **camelCase** typed functions:
+All NEAR JSON-RPC methods are available as **camelCase** typed functions. [Try them in the interactive demo!](https://your-app.railway.app)
 
-**Network & Node**
+### Node & Network (6 methods)
 - `status()` - Node status and network info
-- `networkInfo()` ✅ - Network information (camelCase!)
+- `networkInfo()` - Network information
 - `health()` - Node health check
-- `gasPrice()` ✅ - Current gas price (camelCase!)
-- `genesisConfig()` ✅ - Genesis configuration (camelCase!)
+- `gasPrice()` - Current gas price
+- `genesisConfig()` - Genesis configuration
+- `clientConfig()` - Client configuration
 
-**Blocks & Chunks**
+### Blocks & Chunks (4 methods)
 - `block()` - Query block information
 - `chunk()` - Query chunk information
 - `changes()` - State changes in block
-- `blockEffects()` ✅ - Block state changes by type (camelCase!)
+- `blockEffects()` - Block state changes by type
 
-**Transactions**
+### Transactions (4 methods)
 - `tx()` - Transaction status
-- `sendTx()` ✅ - Send transaction (camelCase!)
-- `broadcastTxAsync()` ✅ - Broadcast transaction async (camelCase!)
-- `broadcastTxCommit()` ✅ - Broadcast transaction commit (camelCase!)
+- `sendTx()` - Send transaction
+- `broadcastTxAsync()` - Broadcast transaction async
+- `broadcastTxCommit()` - Broadcast transaction commit
 
-**Accounts & Access Keys**
+### Accounts & Query (2 methods)
 - `query()` - General query (accounts, contracts, etc.)
 - `validators()` - Current validators
 
-**Light Client**
-- `lightClientProof()` ✅ - Light client execution proof (camelCase!)
-- `nextLightClientBlock()` ✅ - Next light client block (camelCase!)
+### Light Client (3 methods)
+- `lightClientProof()` - Light client execution proof
+- `nextLightClientBlock()` - Next light client block
+- `maintenanceWindows()` - Maintenance windows info
 
-**Experimental Methods**
-All experimental methods now use camelCase naming:
-- `experimentalChanges()` ✅
-- `experimentalGenesisConfig()` ✅
-- `experimentalLightClientProof()` ✅
-- And many more...
+### Experimental Methods (12 methods)
+- `experimentalChanges()` - State changes (experimental)
+- `experimentalChangesInBlock()` - Changes in block
+- `experimentalGenesisConfig()` - Genesis config
+- `experimentalLightClientBlockProof()` - Light client block proof
+- `experimentalLightClientProof()` - Light client proof
+- `experimentalProtocolConfig()` - Protocol configuration
+- `experimentalValidatorsOrdered()` - Validators ordered
+- `experimentalTxStatus()` - Transaction status
+- `experimentalReceipt()` - Receipt information
+- `experimentalCongestionLevel()` - Network congestion level
+- `experimentalMaintenanceWindows()` - Maintenance windows
+- `experimentalSplitStorageInfo()` - Split storage information
+
+**Plus:** `statusRaw()` for raw JSON responses
 
 ## Advanced Usage
 

@@ -155,22 +155,24 @@ fun Routing.configureRoutes() {
                 "Light Client" to listOf(
                     MethodInfo("light_client_proof", "Light client proof", """{"type":"transaction","transaction_hash":"6zgh2u9DqHHiXzdy9ouTP7oGky2T4nugqzqt9wJZwNFm","sender_id":"test.near"}"""),
                     MethodInfo("next_light_client_block", "Next light client block", """{"last_block_hash":"4NfqDPZQJd2pffWNK2jVUrXfQxrQU6wyC7cWfTdPPpRj"}"""),
+                    MethodInfo("maintenance_windows", "Maintenance windows", """{"account_id":"test.near"}"""),
                 ),
                 "Experimental" to listOf(
                     MethodInfo("EXPERIMENTAL_changes", "State changes (exp)", """{"changes_type":"all_access_key_changes","account_ids":["test.near"],"block_id":17821130}"""),
                     MethodInfo("EXPERIMENTAL_changes_in_block", "Changes in block (exp)", """{"block_id":17821130}"""),
                     MethodInfo("EXPERIMENTAL_genesis_config", "Genesis config (exp)"),
+                    MethodInfo("EXPERIMENTAL_light_client_block_proof", "Light client block proof (exp)", """{"last_block_hash":"4NfqDPZQJd2pffWNK2jVUrXfQxrQU6wyC7cWfTdPPpRj"}"""),
+                    MethodInfo("EXPERIMENTAL_light_client_proof", "Light client proof (exp)", """{"type":"transaction","transaction_hash":"...","sender_id":"test.near"}"""),
                     MethodInfo("EXPERIMENTAL_protocol_config", "Protocol config (exp)", """{"finality":"final"}"""),
                     MethodInfo("EXPERIMENTAL_validators_ordered", "Validators ordered (exp)", """{"block_id":17821130}"""),
                     MethodInfo("EXPERIMENTAL_tx_status", "TX status (exp)", """{"tx_hash":"6zgh2u9DqHHiXzdy9ouTP7oGky2T4nugqzqt9wJZwNFm","sender_account_id":"test.near"}"""),
                     MethodInfo("EXPERIMENTAL_receipt", "Receipt info (exp)", """{"receipt_id":"..."}"""),
-                    MethodInfo("EXPERIMENTAL_light_client_proof", "Light client proof (exp)", """{"type":"transaction","transaction_hash":"...","sender_id":"test.near"}"""),
                     MethodInfo("EXPERIMENTAL_congestion_level", "Congestion level (exp)"),
                     MethodInfo("EXPERIMENTAL_maintenance_windows", "Maintenance windows (exp)", """{"account_id":"test.near"}"""),
                     MethodInfo("EXPERIMENTAL_split_storage_info", "Split storage info (exp)"),
                 ),
             ),
-            total = 33
+            total = 32
         ))
     }
 }
@@ -353,7 +355,7 @@ fun getIndexHtml() = """
             </div>
 
             <div class="section">
-                <h2>2. Choose RPC Method <span style="color:#667eea; font-size:0.8em">(33 methods available)</span></h2>
+                <h2>2. Choose RPC Method <span style="color:#667eea; font-size:0.8em">(32 methods available)</span></h2>
                 <div id="methods-container">Loading methods...</div>
             </div>
 
