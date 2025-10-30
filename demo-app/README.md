@@ -29,21 +29,50 @@ The demo supports the following NEAR RPC methods:
 
 - JDK 17+
 - Gradle 8.5+
+- Python 3.7+ (for code generation)
 
 ### Build and Run
 
+#### Option 1: Using Build Script (Recommended)
+
+```bash
+# Build everything
+./build-demo.sh
+
+# Run the application
+./start-demo.sh
+
+# Or run directly
+java -jar demo-app/build/libs/near-demo.jar
+```
+
+#### Option 2: Using Gradle Directly
+
 ```bash
 # From repository root
+bash scripts/fix_near_types.sh
 ./gradlew :demo-app:shadowJar
 
 # Run the application
 java -jar demo-app/build/libs/near-demo.jar
 
-# Or run directly with Gradle
+# Or run with Gradle (slower)
 ./gradlew :demo-app:run
 ```
 
 The application will start on `http://localhost:8080`
+
+### Quick Test
+
+```bash
+# Test health endpoint
+curl http://localhost:8080/health
+
+# Test RPC call
+curl -X POST http://localhost:8080/api/rpc/testnet \
+  -H "Content-Type: application/json" \
+  -d '{"method":"status","params":null}'
+```
 
 ## Deployment
 

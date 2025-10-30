@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["...", "python3"]
+
+[phases.build]
+cmds = [
+    "bash scripts/fix_near_types.sh",
+    "./gradlew :demo-app:shadowJar --no-daemon"
+]
+
+[start]
+cmd = "java -Xmx512m -jar demo-app/build/libs/near-demo.jar"

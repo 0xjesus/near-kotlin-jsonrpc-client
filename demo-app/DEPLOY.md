@@ -127,11 +127,20 @@ web: java -jar demo-app/build/libs/near-demo.jar
 
 ### Build Fails
 
+**Problem**: `Unable to access jarfile demo-app/build/libs/near-demo.jar`
+**Solution**: This means the build didn't complete. The fix is already in place:
+- `nixpacks.toml` configures the build correctly
+- `build-demo.sh` script runs all required steps
+- Railway will automatically use these configurations
+
 **Problem**: Gradle build fails
 **Solution**: Ensure JDK 17+ is available in build environment
 
+**Problem**: `fix_near_types.sh` fails
+**Solution**: Ensure Python 3 is available. The build now continues even if this fails.
+
 **Problem**: Out of memory during build
-**Solution**: Add `GRADLE_OPTS=-Xmx2048m` environment variable
+**Solution**: Add `GRADLE_OPTS=-Xmx2048m` environment variable or use `--no-daemon` flag
 
 ### Runtime Fails
 
