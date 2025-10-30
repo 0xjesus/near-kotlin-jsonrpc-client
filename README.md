@@ -5,21 +5,26 @@ Type-safe Kotlin client for NEAR Protocol's JSON-RPC API, automatically generate
 [![CI](https://github.com/0xjesus/near-kotlin-jsonrpc-client/actions/workflows/ci.yml/badge.svg)](https://github.com/0xjesus/near-kotlin-jsonrpc-client/actions)
 [![GitHub Packages](https://img.shields.io/badge/GitHub%20Packages-0.1.0--SNAPSHOT-blue)](https://github.com/0xjesus/near-kotlin-jsonrpc-client/packages)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Try%20Now!-brightgreen)](https://web-production-f1dd.up.railway.app/)
+[![RPC Methods](https://img.shields.io/badge/RPC%20Methods-32-purple)](https://web-production-f1dd.up.railway.app/)
 
 ---
 
 ## 🎯 Live Interactive Demo
 
-**[👉 Try the Interactive Demo](https://your-app.railway.app)** - Test all 32 RPC methods in your browser!
+### **[👉 Try the Interactive Demo Now!](https://web-production-f1dd.up.railway.app/)**
+
+Test all 32 RPC methods directly in your browser with a beautiful, interactive UI!
 
 The demo application showcases:
-- ✨ All 32 NEAR JSON-RPC methods
-- 🎨 Beautiful, modern UI with method categorization
+- ✨ **All 32 NEAR JSON-RPC methods** organized by category
+- 🎨 Beautiful, modern UI with gradient design
 - 📝 Pre-filled parameter examples for each method
 - 🔄 Switch between Testnet and Mainnet
-- ⚡ Real-time response viewer
+- ⚡ Real-time response viewer with syntax highlighting
+- 📱 Fully responsive design
 
-**Note:** Deploy your own demo instance in minutes! See [demo-app/DEPLOY.md](demo-app/DEPLOY.md) for instructions.
+**Want your own instance?** Deploy in minutes! See [demo-app/DEPLOY.md](demo-app/DEPLOY.md) for instructions.
 
 ---
 
@@ -112,7 +117,7 @@ fun main() = runBlocking {
 
 ## 📚 Available Methods (32 Total)
 
-All NEAR JSON-RPC methods are available as **camelCase** typed functions. [Try them in the interactive demo!](https://your-app.railway.app)
+All NEAR JSON-RPC methods are available as **camelCase** typed functions. **[Try them in the live demo!](https://web-production-f1dd.up.railway.app/)**
 
 ### Node & Network (6 methods)
 - `status()` - Node status and network info
@@ -205,6 +210,8 @@ println(rawStatus.jsonObject["version"])
 ## Demo Application
 
 This repository includes a full-featured demo application showcasing the library in action.
+
+**🌐 [Live Demo](https://web-production-f1dd.up.railway.app/)** - Try it now!
 
 ### Running the Demo Locally
 
@@ -367,6 +374,7 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 
 ## Support
 
-- [NEAR Documentation](https://docs.near.org)
-- [NEAR Discord](https://near.chat)
-- [GitHub Issues](https://github.com/YOUR_USERNAME/near-kotlin-jsonrpc-client/issues)   
+- 🌐 [Live Interactive Demo](https://web-production-f1dd.up.railway.app/)
+- 📖 [NEAR Documentation](https://docs.near.org)
+- 💬 [NEAR Discord](https://near.chat)
+- 🐛 [GitHub Issues](https://github.com/0xjesus/near-kotlin-jsonrpc-client/issues)   
