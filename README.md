@@ -68,60 +68,66 @@ import kotlinx.serialization.json.*
 fun main() = runBlocking {
     // Create client
     val client = NearJsonRpcClient("https://rpc.testnet.near.org")
-    
-    // Get network status
+
+    // Get network status - now with camelCase!
     val status = client.status()
-    println("Chain ID: ${status.result?.chainId}")
-    
+    println("Status: $status")
+
     // Query block
     val block = client.block(buildJsonObject {
         put("finality", "final")
     })
-    println("Latest block height: ${block.result?.header?.height}")
-    
-    // Query account
-    val query = client.query(buildJsonObject {
-        put("request_type", "view_account")
-        put("finality", "final")
-        put("account_id", "example.testnet")
+    println("Block: $block")
+
+    // Broadcast transaction (camelCase method names!)
+    val txResult = client.broadcastTxAsync(buildJsonObject {
+        put("signed_tx_base64", "your_signed_transaction_here")
     })
-    println(query)
+    println("Transaction: $txResult")
+
+    // Get gas price (camelCase!)
+    val gasPrice = client.gasPrice()
+    println("Gas price: $gasPrice")
 }
 ```
 
 ## Available Methods
 
-All NEAR JSON-RPC methods are available as typed functions:
+All NEAR JSON-RPC methods are available as **camelCase** typed functions:
 
 **Network & Node**
 - `status()` - Node status and network info
-- `networkInfo()` - Network information
+- `networkInfo()` ✅ - Network information (camelCase!)
 - `health()` - Node health check
-- `gasPrice()` - Current gas price
-- `genesisConfig()` - Genesis configuration
+- `gasPrice()` ✅ - Current gas price (camelCase!)
+- `genesisConfig()` ✅ - Genesis configuration (camelCase!)
 
 **Blocks & Chunks**
 - `block()` - Query block information
 - `chunk()` - Query chunk information
 - `changes()` - State changes in block
-- `blockEffects()` - Block state changes by type
+- `blockEffects()` ✅ - Block state changes by type (camelCase!)
 
 **Transactions**
 - `tx()` - Transaction status
-- `sendTx()` - Send transaction
-- `broadcastTxAsync()` - Broadcast transaction (async)
-- `broadcastTxCommit()` - Broadcast transaction (wait for commit)
+- `sendTx()` ✅ - Send transaction (camelCase!)
+- `broadcastTxAsync()` ✅ - Broadcast transaction async (camelCase!)
+- `broadcastTxCommit()` ✅ - Broadcast transaction commit (camelCase!)
 
 **Accounts & Access Keys**
 - `query()` - General query (accounts, contracts, etc.)
 - `validators()` - Current validators
 
 **Light Client**
-- `lightClientProof()` - Light client execution proof
-- `nextLightClientBlock()` - Next light client block
+- `lightClientProof()` ✅ - Light client execution proof (camelCase!)
+- `nextLightClientBlock()` ✅ - Next light client block (camelCase!)
 
 **Experimental Methods**
-All `EXPERIMENTAL_*` methods are also available with proper typing.
+All experimental methods now use camelCase naming:
+- `experimentalChanges()` ✅
+- `experimentalGenesisConfig()` ✅
+- `experimentalLightClientProof()` ✅
+- And many more...
 
 ## Advanced Usage
 

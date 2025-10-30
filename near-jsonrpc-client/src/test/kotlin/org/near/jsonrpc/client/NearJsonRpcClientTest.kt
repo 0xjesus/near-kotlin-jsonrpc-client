@@ -127,75 +127,75 @@ class NearJsonRpcClientTest {
     }
 
     @Test
-    fun testEXPERIMENTALChanges() = runBlocking {
+    fun testExperimentalChanges() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.eXPERIMENTAL_changes()
+        client.experimentalChanges()
     }
 
     @Test
-    fun testEXPERIMENTALChangesInBlock() = runBlocking {
+    fun testExperimentalChangesInBlock() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.eXPERIMENTAL_changes_in_block()
+        client.experimentalChangesInBlock()
     }
 
     @Test
-    fun testEXPERIMENTALCongestionLevel() = runBlocking {
+    fun testExperimentalCongestionLevel() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.eXPERIMENTAL_congestion_level()
+        client.experimentalCongestionLevel()
     }
 
     @Test
-    fun testEXPERIMENTALGenesisConfig() = runBlocking {
+    fun testExperimentalGenesisConfig() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.eXPERIMENTAL_genesis_config()
+        client.experimentalGenesisConfig()
     }
 
     @Test
-    fun testEXPERIMENTALLightClientBlockProof() = runBlocking {
+    fun testExperimentalLightClientBlockProof() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.eXPERIMENTAL_light_client_block_proof()
+        client.experimentalLightClientBlockProof()
     }
 
     @Test
-    fun testEXPERIMENTALLightClientProof() = runBlocking {
+    fun testExperimentalLightClientProof() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.eXPERIMENTAL_light_client_proof()
+        client.experimentalLightClientProof()
     }
 
     @Test
-    fun testEXPERIMENTALMaintenanceWindows() = runBlocking {
+    fun testExperimentalMaintenanceWindows() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.eXPERIMENTAL_maintenance_windows()
+        client.experimentalMaintenanceWindows()
     }
 
     @Test
-    fun testEXPERIMENTALProtocolConfig() = runBlocking {
+    fun testExperimentalProtocolConfig() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.eXPERIMENTAL_protocol_config()
+        client.experimentalProtocolConfig()
     }
 
     @Test
-    fun testEXPERIMENTALReceipt() = runBlocking {
+    fun testExperimentalReceipt() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.eXPERIMENTAL_receipt()
+        client.experimentalReceipt()
     }
 
     @Test
-    fun testEXPERIMENTALSplitStorageInfo() = runBlocking {
+    fun testExperimentalSplitStorageInfo() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.eXPERIMENTAL_split_storage_info()
+        client.experimentalSplitStorageInfo()
     }
 
     @Test
-    fun testEXPERIMENTALTxStatus() = runBlocking {
+    fun testExperimentalTxStatus() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.eXPERIMENTAL_tx_status()
+        client.experimentalTxStatus()
     }
 
     @Test
-    fun testEXPERIMENTALValidatorsOrdered() = runBlocking {
+    fun testExperimentalValidatorsOrdered() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.eXPERIMENTAL_validators_ordered()
+        client.experimentalValidatorsOrdered()
     }
 
     @Test
@@ -207,19 +207,19 @@ class NearJsonRpcClientTest {
     @Test
     fun testBlockEffects() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.block_effects()
+        client.blockEffects()
     }
 
     @Test
     fun testBroadcastTxAsync() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.broadcast_tx_async()
+        client.broadcastTxAsync()
     }
 
     @Test
     fun testBroadcastTxCommit() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.broadcast_tx_commit()
+        client.broadcastTxCommit()
     }
 
     @Test
@@ -237,19 +237,19 @@ class NearJsonRpcClientTest {
     @Test
     fun testClientConfig() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.client_config()
+        client.clientConfig()
     }
 
     @Test
     fun testGasPrice() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.gas_price()
+        client.gasPrice()
     }
 
     @Test
     fun testGenesisConfig() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.genesis_config()
+        client.genesisConfig()
     }
 
     @Test
@@ -261,25 +261,25 @@ class NearJsonRpcClientTest {
     @Test
     fun testLightClientProof() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.light_client_proof()
+        client.lightClientProof()
     }
 
     @Test
     fun testMaintenanceWindows() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.maintenance_windows()
+        client.maintenanceWindows()
     }
 
     @Test
     fun testNetworkInfo() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.network_info()
+        client.networkInfo()
     }
 
     @Test
     fun testNextLightClientBlock() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.next_light_client_block()
+        client.nextLightClientBlock()
     }
 
     @Test
@@ -291,7 +291,7 @@ class NearJsonRpcClientTest {
     @Test
     fun testSendTx() = runBlocking {
         val client = mockClient(Json { ignoreUnknownKeys = true }, mockSuccess())
-        client.send_tx()
+        client.sendTx()
     }
 
     @Test

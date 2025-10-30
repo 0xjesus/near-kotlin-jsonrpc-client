@@ -120,7 +120,10 @@ publishing {
 }
 
 kotlin.sourceSets.getByName("main").kotlin.srcDir("$buildDir/generated-fixed/src/main/kotlin")
-tasks.register<Exec>("postGenPatch") {
+
+// Patch types to ensure compilation success
+// Note: OpenAPI generator creates many types with issues, so we wrap them for now
+tasks.register<Exec>("patchTypes") {
     group = "codegen"
     workingDir = rootProject.projectDir
     commandLine("python3", "scripts/patch_types_ultra.py", "$buildDir/generated-fixed/src/main/kotlin/org/near/jsonrpc/types/models")
@@ -128,9 +131,10 @@ tasks.register<Exec>("postGenPatch") {
     inputs.dir("$buildDir/generated-fixed/src/main/kotlin/org/near/jsonrpc/types/models")
     outputs.upToDateWhen { false }
 }
-tasks.named("postGenPatch") {
+tasks.named("patchTypes") {
     mustRunAfter("fixAndCopyGenerated")
 }
+
 tasks.named("compileKotlin") {
-    dependsOn("fixAndCopyGenerated", "postGenPatch")
+    dependsOn("fixAndCopyGenerated", "patchTypes")
 }

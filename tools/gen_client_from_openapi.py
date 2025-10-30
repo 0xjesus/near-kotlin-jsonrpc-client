@@ -21,8 +21,16 @@ else:
 
 paths=data.get("paths",{})
 
-def pascal_to_camel(name): 
+def pascal_to_camel(name):
     return name[:1].lower()+name[1:] if name else name
+
+def snake_to_camel(name):
+    """Convert snake_case to camelCase"""
+    parts = name.split('_')
+    if not parts:
+        return name
+    # First part stays lowercase, capitalize rest
+    return parts[0].lower() + ''.join(word.capitalize() for word in parts[1:])
 
 def to_kotlin_type(openapi_schema_name):
     """Convert OpenAPI schema name (with underscores) to Kotlin type name (camelCase)"""
@@ -64,9 +72,10 @@ for path,ops in paths.items():
     
     method_name=path.strip("/").split("/")[-1] if path.strip("/") else "root"
     if method_name=="root": continue
-    
-    fname=pascal_to_camel(op_id)
-    
+
+    # Convert method name from snake_case to camelCase
+    fname=snake_to_camel(method_name)
+
     if ret=="kotlinx.serialization.json.JsonElement":
         k.append(f'suspend fun NearJsonRpcClient.{fname}(params: JsonElement? = null): JsonElement = this.call("{method_name}", params, JsonElement.serializer())')
     else:
