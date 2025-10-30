@@ -29,6 +29,19 @@ data class ErrorResponse(
     val message: String
 )
 
+@Serializable
+data class MethodInfo(
+    val name: String,
+    val desc: String,
+    val params: String? = null
+)
+
+@Serializable
+data class MethodsResponse(
+    val categories: Map<String, List<MethodInfo>>,
+    val total: Int
+)
+
 fun main() {
     val port = System.getenv("PORT")?.toIntOrNull() ?: 8080
 
@@ -113,19 +126,51 @@ fun Routing.configureRoutes() {
 
     // List available methods
     get("/api/methods") {
-        call.respond(mapOf(
-            "methods" to listOf(
-                mapOf("name" to "status", "description" to "Get node status and network info"),
-                mapOf("name" to "network_info", "description" to "Get network information"),
-                mapOf("name" to "gas_price", "description" to "Get current gas price"),
-                mapOf("name" to "block", "description" to "Query block information"),
-                mapOf("name" to "chunk", "description" to "Query chunk information"),
-                mapOf("name" to "tx", "description" to "Get transaction status"),
-                mapOf("name" to "query", "description" to "Query accounts, contracts, etc."),
-                mapOf("name" to "validators", "description" to "Get current validators"),
-                mapOf("name" to "health", "description" to "Node health check"),
-                mapOf("name" to "genesis_config", "description" to "Get genesis configuration"),
-            )
+        call.respond(MethodsResponse(
+            categories = mapOf(
+                "Node & Network" to listOf(
+                    MethodInfo("status", "Node status"),
+                    MethodInfo("network_info", "Network info"),
+                    MethodInfo("health", "Health check"),
+                    MethodInfo("gas_price", "Current gas price"),
+                    MethodInfo("genesis_config", "Genesis config"),
+                    MethodInfo("client_config", "Client config"),
+                ),
+                "Blocks & Chunks" to listOf(
+                    MethodInfo("block", "Block info", """{"finality":"final"}"""),
+                    MethodInfo("chunk", "Chunk info", """{"chunk_id":"EBM2qg5cGr47EjMPtH88uvmXHDHqmWPzKaQadbWhdw22"}"""),
+                    MethodInfo("changes", "State changes", """{"changes_type":"all_access_key_changes","account_ids":["test.near"],"block_id":17821130}"""),
+                    MethodInfo("block_effects", "Block state changes", """{"block_id":17821130}"""),
+                ),
+                "Transactions" to listOf(
+                    MethodInfo("tx", "TX status", """{"tx_hash":"6zgh2u9DqHHiXzdy9ouTP7oGky2T4nugqzqt9wJZwNFm","sender_account_id":"test.near"}"""),
+                    MethodInfo("send_tx", "Send TX", """{"signed_tx_base64":"..."}"""),
+                    MethodInfo("broadcast_tx_async", "Broadcast TX async", """{"signed_tx_base64":"..."}"""),
+                    MethodInfo("broadcast_tx_commit", "Broadcast TX commit", """{"signed_tx_base64":"..."}"""),
+                ),
+                "Accounts & Query" to listOf(
+                    MethodInfo("query", "Query state", """{"request_type":"view_account","finality":"final","account_id":"test.near"}"""),
+                    MethodInfo("validators", "Validators", null),
+                ),
+                "Light Client" to listOf(
+                    MethodInfo("light_client_proof", "Light client proof", """{"type":"transaction","transaction_hash":"6zgh2u9DqHHiXzdy9ouTP7oGky2T4nugqzqt9wJZwNFm","sender_id":"test.near"}"""),
+                    MethodInfo("next_light_client_block", "Next light client block", """{"last_block_hash":"4NfqDPZQJd2pffWNK2jVUrXfQxrQU6wyC7cWfTdPPpRj"}"""),
+                ),
+                "Experimental" to listOf(
+                    MethodInfo("EXPERIMENTAL_changes", "State changes (exp)", """{"changes_type":"all_access_key_changes","account_ids":["test.near"],"block_id":17821130}"""),
+                    MethodInfo("EXPERIMENTAL_changes_in_block", "Changes in block (exp)", """{"block_id":17821130}"""),
+                    MethodInfo("EXPERIMENTAL_genesis_config", "Genesis config (exp)"),
+                    MethodInfo("EXPERIMENTAL_protocol_config", "Protocol config (exp)", """{"finality":"final"}"""),
+                    MethodInfo("EXPERIMENTAL_validators_ordered", "Validators ordered (exp)", """{"block_id":17821130}"""),
+                    MethodInfo("EXPERIMENTAL_tx_status", "TX status (exp)", """{"tx_hash":"6zgh2u9DqHHiXzdy9ouTP7oGky2T4nugqzqt9wJZwNFm","sender_account_id":"test.near"}"""),
+                    MethodInfo("EXPERIMENTAL_receipt", "Receipt info (exp)", """{"receipt_id":"..."}"""),
+                    MethodInfo("EXPERIMENTAL_light_client_proof", "Light client proof (exp)", """{"type":"transaction","transaction_hash":"...","sender_id":"test.near"}"""),
+                    MethodInfo("EXPERIMENTAL_congestion_level", "Congestion level (exp)"),
+                    MethodInfo("EXPERIMENTAL_maintenance_windows", "Maintenance windows (exp)", """{"account_id":"test.near"}"""),
+                    MethodInfo("EXPERIMENTAL_split_storage_info", "Split storage info (exp)"),
+                ),
+            ),
+            total = 33
         ))
     }
 }
@@ -308,15 +353,8 @@ fun getIndexHtml() = """
             </div>
 
             <div class="section">
-                <h2>2. Choose RPC Method</h2>
-                <div class="method-grid">
-                    <div class="method-btn" data-method="status">status</div>
-                    <div class="method-btn" data-method="network_info">network_info</div>
-                    <div class="method-btn" data-method="gas_price">gas_price</div>
-                    <div class="method-btn" data-method="block">block</div>
-                    <div class="method-btn" data-method="validators">validators</div>
-                    <div class="method-btn" data-method="genesis_config">genesis_config</div>
-                </div>
+                <h2>2. Choose RPC Method <span style="color:#667eea; font-size:0.8em">(33 methods available)</span></h2>
+                <div id="methods-container">Loading methods...</div>
             </div>
 
             <div class="section params-section">
@@ -346,15 +384,80 @@ fun getIndexHtml() = """
     <script>
         let selectedNetwork = 'testnet';
         let selectedMethod = null;
+        let methodExamples = {};
 
-        const examples = {
-            'status': null,
-            'network_info': null,
-            'gas_price': null,
-            'genesis_config': null,
-            'validators': null,
-            'block': '{"finality": "final"}',
-        };
+        // Load methods dynamically
+        async function loadMethods() {
+            try {
+                const response = await fetch('/api/methods');
+                const data = await response.json();
+
+                const container = document.getElementById('methods-container');
+                container.innerHTML = '';
+
+                // Create sections for each category
+                Object.entries(data.categories).forEach(([category, methods]) => {
+                    const categorySection = document.createElement('div');
+                    categorySection.style.marginBottom = '30px';
+
+                    const categoryTitle = document.createElement('h3');
+                    categoryTitle.textContent = category;
+                    categoryTitle.style.color = '#667eea';
+                    categoryTitle.style.fontSize = '1.2em';
+                    categoryTitle.style.marginBottom = '10px';
+                    categorySection.appendChild(categoryTitle);
+
+                    const methodGrid = document.createElement('div');
+                    methodGrid.className = 'method-grid';
+
+                    methods.forEach(method => {
+                        const btn = document.createElement('div');
+                        btn.className = 'method-btn';
+                        btn.dataset.method = method.name;
+                        btn.textContent = method.name;
+                        btn.title = method.desc;
+
+                        // Store example params
+                        if (method.params) {
+                            methodExamples[method.name] = method.params;
+                        }
+
+                        btn.addEventListener('click', () => selectMethod(method.name));
+                        methodGrid.appendChild(btn);
+                    });
+
+                    categorySection.appendChild(methodGrid);
+                    container.appendChild(categorySection);
+                });
+            } catch (e) {
+                console.error('Failed to load methods:', e);
+            }
+        }
+
+        function selectMethod(method) {
+            selectedMethod = method;
+            const example = methodExamples[method];
+
+            if (example) {
+                document.getElementById('params').value = example;
+                document.getElementById('example-params').innerHTML =
+                    '<strong>Example:</strong> ' + example;
+            } else {
+                document.getElementById('params').value = '';
+                document.getElementById('example-params').innerHTML =
+                    '<strong>Note:</strong> This method requires no parameters';
+            }
+
+            // Visual feedback
+            document.querySelectorAll('.method-btn').forEach(b => {
+                b.style.background = '';
+                b.style.color = '';
+                b.style.borderColor = '';
+            });
+            event.target.style.background = '#667eea';
+            event.target.style.color = 'white';
+            event.target.style.borderColor = '#667eea';
+        }
 
         // Network selection
         document.querySelectorAll('.network-btn').forEach(btn => {
@@ -365,28 +468,8 @@ fun getIndexHtml() = """
             });
         });
 
-        // Method selection
-        document.querySelectorAll('.method-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                selectedMethod = btn.dataset.method;
-                const example = examples[selectedMethod];
-                if (example) {
-                    document.getElementById('params').value = example;
-                    document.getElementById('example-params').innerHTML =
-                        '<strong>Example:</strong> ' + example;
-                } else {
-                    document.getElementById('params').value = '';
-                    document.getElementById('example-params').innerHTML =
-                        '<strong>Note:</strong> This method requires no parameters';
-                }
-                btn.style.background = '#667eea';
-                btn.style.color = 'white';
-                setTimeout(() => {
-                    btn.style.background = '';
-                    btn.style.color = '';
-                }, 200);
-            });
-        });
+        // Load methods on page load
+        loadMethods();
 
         // Execute request
         document.getElementById('execute').addEventListener('click', async () => {
