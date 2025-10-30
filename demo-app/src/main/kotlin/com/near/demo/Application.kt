@@ -132,8 +132,7 @@ fun Routing.configureRoutes() {
                     MethodInfo("status", "Node status"),
                     MethodInfo("network_info", "Network info"),
                     MethodInfo("health", "Health check"),
-                    MethodInfo("gas_price", "Current gas price"),
-                    MethodInfo("genesis_config", "Genesis config"),
+                    MethodInfo("gas_price", "Current gas price", """[null]"""),
                     MethodInfo("client_config", "Client config"),
                 ),
                 "Blocks & Chunks" to listOf(
@@ -150,7 +149,7 @@ fun Routing.configureRoutes() {
                 ),
                 "Accounts & Query" to listOf(
                     MethodInfo("query", "Query state", """{"request_type":"view_account","finality":"final","account_id":"test.near"}"""),
-                    MethodInfo("validators", "Validators", null),
+                    MethodInfo("validators", "Validators", """[null]"""),
                 ),
                 "Light Client" to listOf(
                     MethodInfo("light_client_proof", "Light client proof", """{"type":"transaction","transaction_hash":"6zgh2u9DqHHiXzdy9ouTP7oGky2T4nugqzqt9wJZwNFm","sender_id":"test.near"}"""),
@@ -172,7 +171,7 @@ fun Routing.configureRoutes() {
                     MethodInfo("EXPERIMENTAL_split_storage_info", "Split storage info (exp)"),
                 ),
             ),
-            total = 32
+            total = 31
         ))
     }
 }
@@ -236,7 +235,7 @@ fun getIndexHtml() = """
 
         .method-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 15px;
             margin-bottom: 30px;
         }
@@ -249,6 +248,11 @@ fun getIndexHtml() = """
             transition: all 0.3s;
             text-align: center;
             font-weight: 500;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            font-size: 0.9em;
+            line-height: 1.4;
         }
         .method-btn:hover {
             background: #667eea;
@@ -320,6 +324,9 @@ fun getIndexHtml() = """
             border-radius: 6px;
             margin-top: 10px;
             font-size: 0.9em;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            overflow-x: auto;
         }
         .example-params strong { color: #667eea; }
 
@@ -355,7 +362,7 @@ fun getIndexHtml() = """
             </div>
 
             <div class="section">
-                <h2>2. Choose RPC Method <span style="color:#667eea; font-size:0.8em">(32 methods available)</span></h2>
+                <h2>2. Choose RPC Method <span style="color:#667eea; font-size:0.8em">(31 methods available)</span></h2>
                 <div id="methods-container">Loading methods...</div>
             </div>
 
